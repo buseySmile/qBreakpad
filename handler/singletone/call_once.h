@@ -71,9 +71,9 @@ template <class Function>
 inline static void qCallOncePerThread(Function func)
 {
     using namespace CallOnce;
-    if (!once_flag()->hasLocalData()) {
-        once_flag()->setLocalData(new QAtomicInt(CO_Request));
-        qCallOnce(func, *once_flag()->localData());
+    if (!CallOnce::once_flag()->hasLocalData()) { // qualifie with CallOnce:: due to conflict on MacOS X
+        CallOnce::once_flag()->setLocalData(new QAtomicInt(CO_Request));
+        qCallOnce(func, *CallOnce::once_flag()->localData());
     }
 }
 
